@@ -18,6 +18,8 @@ jobs:
         run: | 
           npm install 
           npm run build 
+      - name: Remover pasta .vercel (limpeza)
+        run: rm -rf .vercel
       - name: Deploy para Vercel 
         uses: amondnet/vercel-action@v20 
         with: 
