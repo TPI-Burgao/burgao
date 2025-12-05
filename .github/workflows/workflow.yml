@@ -19,7 +19,7 @@ jobs:
           npm install 
           npm run build 
       - name: Deploy para Vercel 
-        uses: vercel/actions@v1
+        uses: vercel/vercel-action@v1
         with: 
           token: ${{ secrets.VERCEL_TOKEN }}
           project-id: ${{ secrets.VERCEL_PROJECT_ID }}
