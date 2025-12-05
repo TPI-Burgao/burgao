@@ -24,5 +24,6 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} 
+          scope: personal
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
