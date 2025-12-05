@@ -19,11 +19,10 @@ jobs:
           npm install 
           npm run build 
       - name: Deploy para Vercel 
-        uses: amondnet/vercel-action@v20 
+        uses: vercel/actions@v1
         with: 
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} 
-          vercel-args: '--prod'
+          token: ${{ secrets.VERCEL_TOKEN }}
+          project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          org-id: ${{ secrets.VERCEL_ORG_ID }} 
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
