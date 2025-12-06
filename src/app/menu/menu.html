@@ -1,0 +1,81 @@
+<div class="menu-container">
+  <header class="header">
+    <div class="logo">BURGÃO</div>
+    <nav class="nav">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#menu" class="nav-link active">Menu</a>
+      <a href="#sobre" class="nav-link">Sobre</a>
+    </nav>
+    <div class="header-icons">
+      <button class="icon-btn" aria-label="Perfil">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </button>
+      <button class="icon-btn" aria-label="Carrinho">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 2h6M6 6h12l1 12H5L6 6z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="menu-title">
+    <h1>MENU</h1>
+  </div>
+
+  <div class="menu-grid">
+    @for (item of menuItems; track item.title) {
+      <div 
+        class="menu-card"
+        (click)="onMenuItemClick(item)"
+      >
+        <div class="card-image">
+          <img [src]="item.image" [alt]="item.title">
+          @if (item.isNew) {
+            <span class="new-badge">Novo</span>
+          }
+        </div>
+        <h3 class="card-title">{{ item.title }}</h3>
+      </div>
+    }
+  </div>
+
+  <!-- // transformar em componente -->
+  @if (selectedCategory) {
+    <div class="modal-overlay" (click)="closeProducts()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>{{ selectedCategory.title }}</h2>
+          <button class="close-btn" (click)="closeProducts()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="products-grid">
+          @for (product of selectedCategory.products; track product.id) {
+            <div class="product-card">
+              <div class="product-image">
+                <img [src]="product.image" [alt]="product.name">
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-description">{{ product.description }}</p>
+                <div class="product-footer">
+                  <span class="product-price">R$ {{ product.price.toFixed(2) }}</span>
+                  <button class="add-to-cart-btn" (click)="addToCart(product)">
+                    Adicionar
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
