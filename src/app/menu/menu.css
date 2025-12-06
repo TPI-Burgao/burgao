@@ -1,3 +1,20 @@
+.logo,
+.menu-title h1,
+.nav-link {
+  font-family: 'Sansita Swashed', cursive;
+  font-weight: 700;
+}
+
+.card-title,
+.product-name,
+.product-description,
+.product-price,
+.add-to-cart-btn,
+.modal-header h2 {
+  font-family: 'Lexend Zetta', sans-serif;
+  font-weight: 700;
+}
+
 .menu-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #1a4d3f 0%, #2d6b5a 100%);
@@ -44,9 +61,8 @@
 
 .logo {
   font-size: 28px;
-  font-weight: 700;
   letter-spacing: 4px;
-  font-family: 'Arial', sans-serif;
+  text-transform: capitalize;
 }
 
 .nav {
@@ -61,6 +77,8 @@
   font-style: italic;
   transition: opacity 0.3s;
   position: relative;
+  text-transform: capitalize;
+  letter-spacing: 1px;
 }
 
 .nav-link:hover {
@@ -96,6 +114,39 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
+.cart-btn {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff3b30;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 .menu-title {
   text-align: center;
   margin: 40px 0 60px;
@@ -105,20 +156,21 @@
 
 .menu-title h1 {
   font-size: 48px;
-  font-weight: 700;
   letter-spacing: 8px;
   margin: 0;
+  text-transform: capitalize;
 }
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 40px;
   position: relative;
   z-index: 10;
+  justify-items: center;
 }
 
 .menu-card {
@@ -129,6 +181,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  max-width: 280px;
 }
 
 .menu-card:hover {
@@ -165,7 +219,7 @@
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .card-title {
@@ -173,14 +227,13 @@
   padding: 20px;
   margin: 0;
   font-size: 14px;
-  font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
 
 @media (max-width: 1024px) {
   .menu-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 25px;
   }
 }
@@ -246,6 +299,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -267,6 +321,7 @@
     transform: translateY(50px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -288,9 +343,9 @@
 .modal-header h2 {
   margin: 0;
   font-size: 28px;
-  font-weight: 700;
   letter-spacing: 2px;
   color: white;
+  text-transform: capitalize;
 }
 
 .close-btn {
@@ -357,7 +412,6 @@
 .product-name {
   margin: 0 0 10px 0;
   font-size: 18px;
-  font-weight: 700;
   color: white;
 }
 
@@ -367,6 +421,8 @@
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
   min-height: 60px;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 400;
 }
 
 .product-footer {
@@ -374,25 +430,26 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 15px;
+  gap: 15px;
 }
 
 .product-price {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 20px;
   color: #ffd700;
+  white-space: nowrap;
 }
 
 .add-to-cart-btn {
   background: #ffd700;
   color: #1a4d3f;
   border: none;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 8px;
-  font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   transition: all 0.3s;
-  text-transform: uppercase;
+  text-transform: capitalize;
+  white-space: nowrap;
 }
 
 .add-to-cart-btn:hover {
@@ -403,6 +460,48 @@
 
 .add-to-cart-btn:active {
   transform: scale(0.98);
+}
+
+.quantity-controls-product {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 215, 0, 0.2);
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 2px solid #ffd700;
+}
+
+.quantity-btn-product {
+  background: #ffd700;
+  border: none;
+  color: #1a4d3f;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.quantity-btn-product:hover {
+  background: #ffed4e;
+  transform: scale(1.1);
+}
+
+.quantity-btn-product:active {
+  transform: scale(0.95);
+}
+
+.quantity-product {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffd700;
+  min-width: 25px;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
