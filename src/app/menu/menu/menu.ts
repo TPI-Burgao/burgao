@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Cart } from '../cart/cart';
-import { CartService } from '../services/cart.service';
+import { Cart } from '../../cart/cart';
+import { CartService } from '../../services/cart.service';
+import { Router, RouterLink } from "@angular/router";
 
 // Tipos extraídos para melhor organização e reuso
 export interface Product {
@@ -21,15 +22,22 @@ export interface MenuItem {
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [Cart],
+  imports: [Cart, RouterLink],
   templateUrl: './menu.html',
   styleUrls: ['./menu.css']
 })
-export class MenuComponent {
+export class Menu {
   selectedCategory: MenuItem | null = null;
   isCartOpen = false;
 
-  constructor(public cartService: CartService) {}
+  constructor(
+    public cartService: CartService,
+    private router: Router
+  ) {
+    this.router.events.subscribe(() => {
+      this.closeProducts();
+    });
+  }
 
   menuItems: MenuItem[] = [
     {
