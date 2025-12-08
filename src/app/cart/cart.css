@@ -36,6 +36,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -60,6 +61,7 @@
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -78,7 +80,7 @@
   margin: 0;
   font-size: 24px;
   letter-spacing: 1px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .close-btn {
@@ -123,13 +125,13 @@
 .empty-cart p {
   font-size: 20px;
   margin: 0 0 10px 0;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .empty-cart span {
   font-size: 14px;
   opacity: 0.8;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .cart-items {
@@ -269,13 +271,13 @@
 .subtotal {
   font-size: 14px;
   opacity: 0.8;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .total {
   font-size: 20px;
   color: #ffd700;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .checkout-btn {
@@ -289,7 +291,7 @@
   cursor: pointer;
   transition: all 0.3s;
   letter-spacing: 1px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .checkout-btn:hover {
@@ -338,4 +340,22 @@
   .item-name {
     font-size: 14px;
   }
+}
+
+.close-btn i {
+  font-size: 18px;
+}
+
+.empty-cart i {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.quantity-btn i {
+  font-size: 12px;
+}
+
+.remove-btn i {
+  font-size: 14px;
 }

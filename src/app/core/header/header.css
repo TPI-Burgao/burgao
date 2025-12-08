@@ -4,6 +4,7 @@
   font-family: 'Sansita Swashed', cursive;
   font-weight: 700;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -71,4 +72,33 @@
 
 .cart-btn {
   position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff3b30;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
