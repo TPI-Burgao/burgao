@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Cart } from '../../cart/cart';
 import { CartService } from '../../services/cart.service';
 import { Router, RouterLink } from "@angular/router";
+import { Header } from '../../core/header/header';
 
 // Tipos extraídos para melhor organização e reuso
 export interface Product {
@@ -22,7 +23,7 @@ export interface MenuItem {
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [Cart, RouterLink],
+  imports: [Cart, Header],
   templateUrl: './menu.html',
   styleUrls: ['./menu.css']
 })

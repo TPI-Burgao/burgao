@@ -1,18 +1,5 @@
 <div class="menu-container">
-  <header class="header">
-    <div class="logo">Burgão</div>
-    <nav class="nav">
-      <a href="#home" class="nav-link">Home</a>
-      <a routerLink="/menu" class="nav-link active">Menu</a>
-      <a routerLink="/sobre" class="nav-link">Sobre</a>
-    </nav>
-    <div class="header-icons">
-      <button class="icon-btn" aria-label="Perfil">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      </button>
+  <app-header></app-header>
       <button class="icon-btn cart-btn" aria-label="Carrinho" (click)="toggleCart()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 2h6M6 6h12l1 12H5L6 6z"></path>
@@ -21,9 +8,6 @@
           <span class="cart-badge">{{ cartService.itemCount() }}</span>
         }
       </button>
-    </div>
-  </header>
-
   <div class="menu-title">
     <h1>Menu</h1>
   </div>
