@@ -19,6 +19,8 @@
   font-size: 28px;
   letter-spacing: 4px;
   text-transform: capitalize;
+  color: #FBFADA; 
+  text-decoration: none;
 }
 
 .nav {

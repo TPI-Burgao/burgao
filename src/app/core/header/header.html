@@ -1,7 +1,7 @@
 <header class="header">
-    <div class="logo">Burgão</div>
+    <a routerLink="/home" class="logo">Burgão</a>
     <nav class="nav">
-        <a href="#home" class="nav-link">Home</a>
+        <a routerLink="/home" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
         <a routerLink="/menu" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Menu</a>
         <a routerLink="/sobre" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Sobre</a>
     </nav>
