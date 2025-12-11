@@ -1,23 +1,24 @@
 import { Component } from '@angular/core';
 import { Cart } from '../../cart/cart';
 import { CartService } from '../../services/cart.service';
-import { Router, RouterLink } from "@angular/router";
+import { Router } from "@angular/router";
 import { Header } from '../../core/header/header';
 
-// Tipos extraídos para melhor organização e reuso
 export interface Product {
   id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
+  nome: string;
+  descricao: string;
+  preco: number;
+  precoAntigo?: number;
+  imagem: string;
+  isPromo?: boolean;
 }
 
 export interface MenuItem {
-  title: string;
-  image: string;
+  titulo: string;
+  imagem: string;
   isNew?: boolean;
-  products: Product[];
+  produtos: Product[];
 }
 
 @Component({
@@ -28,188 +29,224 @@ export interface MenuItem {
   styleUrls: ['./menu.css']
 })
 export class Menu {
-  selectedCategory: MenuItem | null = null;
+  categoriaSelecionada: MenuItem | null = null;
   isCartOpen = false;
+  filtroAtual: 'todos' | 'promo' = 'todos';
+  produtosFiltrados: Product[] = [];
+  mostrarMensagemSemPromo = false;
+
+  qtdLocal: { [productId: number]: number } = {};
 
   constructor(
     public cartService: CartService,
     private router: Router
   ) {
-    this.router.events.subscribe(() => {
-      this.closeProducts();
-    });
+    // fecha os produtos quando trocar de rota
+    this.router.events.subscribe(() => this.fecharProdutos());
   }
 
   menuItems: MenuItem[] = [
     {
-      title: 'Novidades',
-      image: 'images/products/novidade.png',
+      titulo: 'Novidades',
+      imagem: 'images/products/novidade.png',
       isNew: true,
-      products: [
+      produtos: [
         {
           id: 1,
-          name: 'Burgão Supreme',
-          description:
-            'Hambúrguer artesanal 200g, queijo cheddar, bacon crocante, alface, tomate e molho especial da casa',
-          price: 32.9,
-          image: 'images/products/burgao-supreme.png'
+          nome: 'Burgão Supreme',
+          descricao: 'Hambúrguer artesanal 200g, queijo cheddar, bacon crocante, alface, tomate e molho especial da casa',
+          preco: 32.9,
+          precoAntigo: 39.9,
+          imagem: 'images/products/burgao-supreme.png',
+          isPromo: true
         },
         {
           id: 2,
-          name: 'Chicken Crispy',
-          description:
-            'Frango empanado crocante, maionese de alho, alface americana e picles',
-          price: 28.9,
-          image: 'images/products/chicken-crispy.png'
+          nome: 'Chicken Crispy',
+          descricao: 'Frango empanado crocante, maionese de alho, alface americana e picles',
+          preco: 28.9,
+          imagem: 'images/products/chicken-crispy.png'
         }
       ]
     },
+
     {
-      title: 'Burgers',
-      image: 'images/products/burger.png',
-      products: [
+      titulo: 'Burgers',
+      imagem: 'images/products/burger.png',
+      produtos: [
         {
           id: 3,
-          name: 'Classic Burger',
-          description:
-            'Hambúrguer 180g, queijo, alface, tomate, cebola e molho burgão',
-          price: 25.9,
-          image: 'images/products/classic-burger.png'
+          nome: 'Classic Burger',
+          descricao: 'Hambúrguer 180g, queijo, alface, tomate, cebola e molho burgão',
+          preco: 25.9,
+          precoAntigo: 35.5,
+          imagem: 'images/products/classic-burger.png',
+          isPromo: true
         },
         {
           id: 4,
-          name: 'Bacon Burger',
-          description:
-            'Hambúrguer 180g, bacon, queijo cheddar, cebola caramelizada e barbecue',
-          price: 29.9,
-          image: 'images/products/bacon-burger.png'
+          nome: 'Bacon Burger',
+          descricao: 'Hambúrguer 180g, bacon, queijo cheddar, cebola caramelizada e barbecue',
+          preco: 29.9,
+          imagem: 'images/products/bacon-burger.png'
         },
         {
           id: 5,
-          name: 'Double Smash',
-          description:
-            'Dois hambúrgueres smash 100g cada, queijo americano, picles e molho especial',
-          price: 34.9,
-          image: 'images/products/double-smash.png'
+          nome: 'Double Smash',
+          descricao: 'Dois hambúrgueres smash 100g cada, queijo americano, picles e molho especial',
+          preco: 34.9,
+          imagem: 'images/products/double-smash.png'
         }
       ]
     },
+
     {
-      title: 'Acompanhamentos',
-      image: 'images/products/acompanhamento.png',
-      products: [
+      titulo: 'Acompanhamentos',
+      imagem: 'images/products/acompanhamento.png',
+      produtos: [
         {
           id: 6,
-          name: 'Onion Rings',
-          description:
-            'Anéis de cebola empanados e crocantes com molho barbecue',
-          price: 15.9,
-          image: 'images/products/onion-rings.png'
+          nome: 'Onion Rings',
+          descricao: 'Anéis de cebola empanados e crocantes com molho barbecue',
+          preco: 15.9,
+          precoAntigo: 20.90,
+          imagem: 'images/products/onion-rings.png',
+          isPromo: true
         },
         {
           id: 7,
-          name: 'Nuggets',
-          description:
-            '10 unidades de nuggets de frango com molho à escolha',
-          price: 18.9,
-          image: 'images/products/nuggets.png'
+          nome: 'Nuggets',
+          descricao: '10 unidades de nuggets de frango com molho à escolha',
+          preco: 18.9,
+          imagem: 'images/products/nuggets.png'
         },
         {
           id: 8,
-          name: 'Batata Frita',
-          description:
-            'Porção de batata frita crocante e sequinha',
-          price: 12.9,
-          image: 'images/products/fritas.png'
+          nome: 'Batata Frita',
+          descricao: 'Porção de batata frita crocante e sequinha',
+          preco: 12.9,
+          imagem: 'images/products/fritas.png'
         }
       ]
     },
+
     {
-      title: 'Bebidas',
-      image: 'images/products/bebidas.png',
-      products: [
+      titulo: 'Bebidas',
+      imagem: 'images/products/bebidas.png',
+      produtos: [
         {
           id: 9,
-          name: 'Refrigerante 350ml',
-          description: 'Coca-Cola, Guaraná ou Fanta',
-          price: 6.9,
-          image: 'images/products/refrigerante.png'
+          nome: 'Refrigerante 350ml',
+          descricao: 'Coca-Cola, Guaraná ou Fanta',
+          preco: 6.9,
+          precoAntigo: 10.9,
+          imagem: 'images/products/refrigerante.png',
+          isPromo: true
         },
         {
           id: 10,
-          name: 'Suco Natural 500ml',
-          description: 'Laranja, limão ou morango',
-          price: 9.9,
-          image: 'images/products/suco-natural.png'
+          nome: 'Suco Natural 500ml',
+          descricao: 'Laranja, limão ou morango',
+          preco: 9.9,
+          imagem: 'images/products/suco-natural.png'
         },
         {
           id: 11,
-          name: 'Milkshake',
-          description: 'Chocolate, morango ou baunilha',
-          price: 16.9,
-          image: 'images/products/milkshake.png'
+          nome: 'Milkshake',
+          descricao: 'Chocolate, morango ou baunilha',
+          preco: 16.9,
+          imagem: 'images/products/milkshake.png'
         }
       ]
     },
+
     {
-      title: 'Combo em promoção',
-      image: 'images/products/combo.png',
-      products: [
+      titulo: 'Combo em promoção',
+      imagem: 'images/products/combo.png',
+      produtos: [
         {
           id: 12,
-          name: 'Combo Burgão',
-          description:
-            'Burgão Supreme + Fritas Média + Refrigerante 350ml',
-          price: 45.9,
-          image: 'images/products/combo-burgao.png'
+          nome: 'Combo Burgão',
+          descricao: 'Burgão Supreme + Fritas Média + Refrigerante 350ml',
+          preco: 45.9,
+          imagem: 'images/products/combo-burgao.png'
         },
         {
           id: 13,
-          name: 'Combo Família',
-          description:
-            '3 Burgers + 3 Fritas + 3 Bebidas + Onion Rings',
-          price: 99.9,
-          image: 'images/products/combo-familia.png'
+          nome: 'Combo Família',
+          descricao: '3 Burgers + 3 Fritas + 3 Bebidas + Onion Rings',
+          preco: 99.9,
+          imagem: 'images/products/combo-familia.png'
         }
       ]
     }
   ];
 
   onMenuItemClick(item: MenuItem) {
-    this.selectedCategory = item;
+    this.categoriaSelecionada = item;
+    this.filtroAtual = 'todos';
+    this.produtosFiltrados = item.produtos;
+    this.mostrarMensagemSemPromo = false;
   }
 
-  closeProducts() {
-    this.selectedCategory = null;
+  fecharProdutos() {
+    this.categoriaSelecionada = null;
+  }
+
+  setFiltro(filter: 'todos' | 'promo') {
+    this.filtroAtual = filter;
+
+    if (!this.categoriaSelecionada) return;
+
+    if (filter === 'todos') {
+      this.produtosFiltrados = this.categoriaSelecionada.produtos;
+      this.mostrarMensagemSemPromo = false;
+      return;
+    }
+
+    const promo = this.categoriaSelecionada.produtos.filter(p => p.isPromo);
+    this.produtosFiltrados = promo;
+    this.mostrarMensagemSemPromo = promo.length === 0;
   }
 
   toggleCart() {
     this.isCartOpen = !this.isCartOpen;
   }
 
-  closeCart() {
+  fecharCarrinho() {
     this.isCartOpen = false;
   }
 
-  addToCart(product: Product) {
-    this.cartService.addItem({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image
-    });
+  adicionarAoCarrinho(product: Product) {
+    const quantity = this.qtdLocal[product.id] || 0;
+    if (quantity === 0) return;
+
+    this.cartService.addItem(
+      {
+        id: product.id,
+        nome: product.nome,
+        preco: product.preco,
+        image: product.imagem
+      },
+      quantity
+    );
+
+    this.qtdLocal[product.id] = 0;
   }
 
-  getProductQuantity(productId: number): number {
-    const item = this.cartService.items().find(i => i.id === productId);
-    return item ? item.quantity : 0;
+  getQtdProduto(productId: number): number {
+    return this.qtdLocal[productId] || 0;
   }
 
-  incrementProduct(product: Product) {
-    this.cartService.incrementQuantity(product.id);
+  incrementarProduto(product: Product) {
+    const id = product.id;
+    this.qtdLocal[id] = (this.qtdLocal[id] || 0) + 1;
   }
 
-  decrementProduct(product: Product) {
-    this.cartService.decrementQuantity(product.id);
+  decrementarProduto(product: Product) {
+    const id = product.id;
+    if (this.qtdLocal[id] > 0) {
+      this.qtdLocal[id]--;
+    }
   }
 }
