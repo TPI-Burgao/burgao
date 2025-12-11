@@ -9,4 +9,22 @@ export const routes: Routes = [
   {path: 'home', component: Home},
   {path: 'menu', component: Menu},
   {path: 'sobre', component: Sobre},
+
+
+  {
+    path: 'auth',
+    loadComponent: () => 
+        import('./pages/auth/auth').then(m => m.Auth) 
+  },
+
+  {
+    path: 'order-history',
+    loadComponent: () => 
+        import('./pages/order-history/order-history').then(m => m.OrderHistory) 
+  }
+
 ];
+
+
+
+
