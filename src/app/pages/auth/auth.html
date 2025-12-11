@@ -4,7 +4,7 @@
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-            <div *ngIf="!isLoginMode">
+            <div ngif="!isLoginMode">
                 <label for="name">Nome :</label>
                 <input id="name" formControlName="name">
             </div>
@@ -15,13 +15,22 @@
             <label for="password">Senha :</label>
             <input id="password" type="password" formControlName="password" [placeholder]="isLoginMode ? '' : 'Informe pelo menos 6 dígitos'">
 
+            <label for="cpf">CPF :</label>
+            <input id="cpf" formControlName="cpf">
+        
+            <label for="phone">Telefone :</label>
+            <input id="phone" type="tel" formControlName="phone">
+        
+            <label for="birthDate">Data de Nascimento :</label>
+            <input id="birthDate" type="date" formControlName="birthDate">
+
             <button type="submit">{{isLoginMode ? 'Entrar' : 'Cadastrar'}}</button>
 
         </form>
 
         <p>
             {{isLoginMode ? 'Não tem conta?' : 'Já tem conta?'}}
-            <button (click)="toggleMode">{{isLoginMode ? 'Criar conta' : 'fazer login'}}</button>
+            <button (click)="toggleMode()">{{isLoginMode ? 'Criar conta' : 'fazer login'}}</button>
         </p>
     </div>
 </body>
