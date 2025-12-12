@@ -1,36 +1,63 @@
-<body>
-    <div class="auth-container">
-        <h2>{{isLoginMode ? 'Login' : 'Cadastro'}}</h2>
+
+<div class="auth-container">
+    <div class="auth-card">
+
+        <div class="auth-header">
+            <h2>{{ isLoginMode ? 'Acessar Conta' : 'Criar Conta' }}</h2>
+        </div>
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            
+            @if (!isLoginMode) {
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input id="name" formControlName="name" type="text">
+                </div>
+                
+                <div class="form-group">
+                    <label for="cpf">CPF:</label>
+                    <input id="cpf" formControlName="cpf" type="text" placeholder="Apenas números">
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input id="telefone" formControlName="telefone" type="tel" placeholder="(99) 99999-9999">
+                </div>
 
-            <div ngif="!isLoginMode">
-                <label for="name">Nome :</label>
-                <input id="name" formControlName="name">
+                <div class="form-group">
+                    <label for="dataNascimento">Data de Nascimento:</label>
+                    <input id="dataNascimento" formControlName="dataNascimento" type="date">
+                </div>
+            }
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input id="email" formControlName="email" type="email">
             </div>
 
-            <label for="email">Email :</label>
-            <input id="email" type="email" formControlName="email">
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input id="password" formControlName="password" type="password" [placeholder]="isLoginMode ? 'Sua senha' : 'Mínimo de 6 dígitos'">
+            </div>
 
-            <label for="password">Senha :</label>
-            <input id="password" type="password" formControlName="password" [placeholder]="isLoginMode ? '' : 'Informe pelo menos 6 dígitos'">
-
-            <label for="cpf">CPF :</label>
-            <input id="cpf" formControlName="cpf">
-        
-            <label for="phone">Telefone :</label>
-            <input id="phone" type="tel" formControlName="phone">
-        
-            <label for="birthDate">Data de Nascimento :</label>
-            <input id="birthDate" type="date" formControlName="birthDate">
-
-            <button type="submit">{{isLoginMode ? 'Entrar' : 'Cadastrar'}}</button>
-
+            <button type="submit" [disabled]="form.invalid">
+                {{ isLoginMode ? 'Entrar na Conta' : 'Cadastrar Agora' }}
+            </button>
+            
         </form>
 
-        <p>
-            {{isLoginMode ? 'Não tem conta?' : 'Já tem conta?'}}
-            <button (click)="toggleMode()">{{isLoginMode ? 'Criar conta' : 'fazer login'}}</button>
-        </p>
+        <div class="auth-footer">
+            <p>
+                @if (isLoginMode) {
+                    Ainda não tem conta?
+                } @else {
+                    Já tem cadastro?
+                }
+                <button class="toggle-btn" (click)="toggleMode()">
+                    {{ isLoginMode ? 'Cadastre-se' : 'Fazer Login' }}
+                </button>
+            </p>
+        </div>
+
     </div>
-</body>
+</div>
