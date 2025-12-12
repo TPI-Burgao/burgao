@@ -7,7 +7,7 @@
         <form (ngSubmit)="onSubmit()" #formProd="ngForm" class="produto-form">
           <label>
             ID
-            <input type="number" [(ngModel)]="produto.id" name="id" required />
+            <input type="number" [(ngModel)]="produto.id" name="id" [disabled]="false" />
           </label>
 
           <label>
@@ -17,7 +17,7 @@
 
           <label>
             URL da imagem
-            <input type="text" [(ngModel)]="produto.url" name="url" />
+            <input type="text" [(ngModel)]="produto.URL" name="url" />
           </label>
 
           <label>
@@ -48,6 +48,20 @@
               name="disponivel"
             />
             Disponível
+          </label>
+
+          <label class="disponivel">
+            <input
+              type="checkbox"
+              [(ngModel)]="produto.promo"
+              name="promo"
+            />
+            Promoção
+          </label>
+
+          <label>
+            Desconto
+            <input type="text" [(ngModel)]="produto.desconto" name="desconto" />
           </label>
 
           <button type="submit">

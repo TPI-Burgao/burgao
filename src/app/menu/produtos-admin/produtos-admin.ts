@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Produto } from '../../models/produto';
+import { Produto, ProdutoDto } from '../../models/produto';
 import { Header } from '../../core/header/header';
 import { Cart } from '../../cart/cart';
 import { CartService } from '../../services/cart.service';
@@ -17,19 +17,26 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class ProdutosAdminPage {
   private produtoService = inject(ProdutoService);
+  editando = signal<boolean>(false);
   produto: Produto = this.novoProduto();
  
   produtos = toSignal<Produto[], Produto[]>(
     this.produtoService.listar(), { initialValue: [] }
   )
 
-  visualizarProduto(id: number): Produto | undefined {
-    return this.produtos().find(p => p.id === id);
+  habilitarEdicao() {
+    this.editando.set(!this.editando());
   }
 
-  adicionarProduto(produto: Produto): Produto {
-    this.produtos().push({ ...produto });
-    return produto;
+  visualizarProduto(id: number) {
+    this.produtoService.vw(id).subscribe({
+      next: (p) => this.produto = p,
+      error: (err) => console.error(err)
+    });
+  }
+
+  adicionarProduto(produto: ProdutoDto): void {
+    this.produtoService.add(produto);
   }
 
   /*removerProduto(produto: Produto): Produto {
@@ -37,22 +44,30 @@ export class ProdutosAdminPage {
     return produto;
   }*/
 
-  alterarProduto(produtoNovo: Produto): void {
+  /* alterarProduto(produtoNovo: ProdutoDto): void {
     const idx = this.produtos().findIndex(p => p.id === produtoNovo.id);
     if (idx >= 0) this.produtos()[idx] = { ...produtoNovo };
-  }
+  } */
 
   onSubmit() {
-    const existe = this.visualizarProduto(this.produto.id);
-    if (existe) {
-      this.alterarProduto(this.produto);
-    } else {
-      this.adicionarProduto(this.produto);
-    }
-    this.produto = this.novoProduto();
+    /*if (this.editando()) {
+      this.produtoService.atualizar(this.produto).subscribe({
+        next: () => {
+          this.editando.set(false);
+          this.produto = this.novoProduto();
+        }
+      });
+    } else {*/
+      this.produtoService.add(this.produto).subscribe({
+        next: () => {
+          this.produto = this.novoProduto();
+        }
+      });
+    /*}*/
   }
 
   editar(p: Produto) {
+    this.habilitarEdicao();
     this.produto = { ...p };
   }
 
@@ -64,11 +79,13 @@ export class ProdutosAdminPage {
     return {
       id: 0,
       nome: '',
-      url: '',
+      URL: '',
       descricao: '',
       preco: 0,
       categoria: '',
       disponivel: true,
+      promo: false,
+      desconto: 0
     };
   }
 }

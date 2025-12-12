@@ -2,13 +2,24 @@
 export interface Produto {
   id: number;
   nome: string;
-  url: string;
+  URL: string;
   descricao: string;
   preco: number;
   categoria: string;
   disponivel: boolean;
-  promo?: true,
-  desconto?: 0
+  promo?: boolean,
+  desconto?: number
+}
+
+export interface ProdutoDto {
+  nome: string;
+  URL: string;
+  descricao: string;
+  preco: number;
+  categoria: string;
+  disponivel: boolean;
+  promo?: boolean,
+  desconto?: number
 }
 
 export class ProdutoMap{
@@ -16,7 +27,7 @@ export class ProdutoMap{
     return {
       id: json.id,
       nome: json.nome,
-      url: json.url,
+      URL: json.URL,
       descricao: json.descricao,
       preco: json.preco,
       categoria: json.categoria,
@@ -30,13 +41,13 @@ export class ProdutoMap{
     return {
       id: p.id,
       nome: p.nome,
-      url: p.url,
+      URL: p.URL,
       descricao: p.descricao,
       preco: p.preco,
       categoria: p.categoria,
       disponivel: p.disponivel,
-      promo: p.promo || false,
-      desconto: p.desconto || 0
+      promo: p.promo,
+      desconto: p.desconto
     } 
   }
 }
