@@ -32,7 +32,7 @@ export class ProfileComponent {
     nome: 'Matheus Gouveia',
     email: 'matheus@burgao.com',
     telefone: '(11) 98765-4321',
-    senha: '********', // Recomendado usar valor placeholder
+    senha: '********', 
     cpf: '12345678900',
     endereco: 'Rua dos Bobos',
     numero: '0',
