@@ -48,7 +48,7 @@ export class Menu {
   menuItems: MenuItem[] = [
     {
       titulo: 'Novidades',
-      imagem: 'images/products/novidade.png',
+      imagem: 'images/products/new.png',
       isNew: true,
       produtos: [
         {
