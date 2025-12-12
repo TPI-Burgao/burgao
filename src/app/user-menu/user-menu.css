@@ -1,9 +1,3 @@
-/*
- * Novo estilo baseado no cart-sidebar (Menu Lateral)
- * Adaptação para o User Menu (Perfil)
- */
-
-/* 1. Overlay (Fundo Escurecido) */
 .user-menu-overlay {
     position: fixed;
     top: 0;
@@ -12,7 +6,7 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(4px);
-    z-index: 2000; /* Pode ser o mesmo do cart-overlay */
+    z-index: 2000; 
     animation: fadeIn 0.3s ease;
 }
 
@@ -25,21 +19,19 @@
     }
 }
 
-/* 2. Sidebar (Menu Lateral) */
 .user-menu-sidebar {
     position: fixed;
     right: 0;
     top: 0;
     bottom: 0;
-    width: 300px; /* Um pouco mais estreito que a sacola, se desejar */
+    width: 300px; 
     max-width: 90vw;
-    /* Usando o mesmo gradiente do cart-sidebar */
     background: linear-gradient(135deg, #1a4d3f 0%, #2d6b5a 100%);
     box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     animation: slideIn 0.3s ease;
-    color: white; /* Cor do texto no sidebar */
+    color: white; 
 }
 
 @keyframes slideIn {
@@ -51,7 +43,6 @@
     }
 }
 
-/* 3. Cabeçalho (Header) */
 .menu-header {
     display: flex;
     justify-content: space-between;
@@ -66,12 +57,10 @@
     font-size: 24px;
     letter-spacing: 1px;
     text-transform: none;
-    /* Usando a mesma fonte do cart-header */
     font-family: 'Sansita Swashed', cursive;
     font-weight: 700;
 }
 
-/* 4. Botão de Fechar (Close Button) - Copiado do cart-sidebar */
 .close-btn {
     background: rgba(255, 255, 255, 0.1);
     border: none;
@@ -90,14 +79,12 @@
     transform: rotate(90deg);
 }
 
-/* 5. Corpo (Body) e Itens de Menu */
 .menu-body {
     flex: 1;
     overflow-y: auto;
-    padding: 10px 0; /* Padding vertical ajustado */
+    padding: 10px 0; 
 }
 
-/* Estilo dos Itens (Botões) - Adaptado para o novo visual */
 .menu-item {
     display: flex;
     align-items: center;
@@ -105,39 +92,35 @@
     background: none;
     border: none;
     text-align: left;
-    padding: 15px 25px; /* Mais padding para ficar parecido com a sacola */
+    padding: 15px 25px; 
     cursor: pointer;
-    color: white; /* Cor do texto */
-    font-size: 16px; /* Tamanho da fonte */
+    color: white; 
+    font-size: 16px; 
     width: 100%;
     transition: background-color 0.3s;
-    /* Usando a mesma fonte dos itens do carrinho */
     font-family: 'Lexend Zetta', sans-serif;
     font-weight: 700;
     text-transform: none;
 }
 
 .menu-item:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Um hover mais sutil */
+    background-color: rgba(255, 255, 255, 0.1); 
 }
 
-/* Estilo para o Logout */
 .menu-item.logout {
-    color: #ff3b30; /* Vermelho destacado */
+    color: #ff3b30; 
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     margin-top: 10px;
     padding-top: 15px;
 }
 
-/* Para o ícone (assumindo que você usará um SVG ou um `<i>` com classe 'fas') */
-.close-btn svg { /* Ou .close-btn i */
+.close-btn svg { 
     font-size: 18px;
     width: 18px;
     height: 18px;
     color: white;
 }
 
-/* Media Query de responsividade */
 @media (max-width: 768px) {
     .user-menu-sidebar {
         width: 100vw;

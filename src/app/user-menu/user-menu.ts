@@ -1,53 +1,44 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Para usar @if e @else
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-menu',
-  standalone: true,
-  imports: [CommonModule], 
-  templateUrl: './user-menu.html',
-  styleUrl: './user-menu.css'
+  selector: 'app-user-menu',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: 'user-menu.html',
+  styleUrls: ['./user-menu.css']
 })
 export class UserMenuComponent {
-  @Input() isOpen = false;
-  @Input() estaLogado: boolean = false; // Receberá o valor do signal do Header
 
-  // Saída para o Header
-  @Output() close = new EventEmitter<void>();
-  @Output() logoutAction = new EventEmitter<void>(); // Novo evento para Logout
+  @Input() isOpen = false;
+  @Input() estaLogado = false;
 
-  private router = inject(Router);
+  @Output() close = new EventEmitter<void>();
 
-  /**
-   * Fecha o menu (usado ao clicar no botão fechar ou no overlay).
-   */
-  onClose() {
-    this.close.emit();
-  }
+  constructor(private router: Router) {}
 
-  /**
-   * Navega para uma rota e fecha o menu.
-   */
-  navegar(rota: string) {
-    this.router.navigate([rota]);
-    this.onClose();
-  }
-  
-  /**
-   * Ação de Logout: Apenas emite o evento para o Header lidar com a lógica de sinal/estado.
-   * Fecha o menu logo após a ação.
-   */
-  onLogout() {
-      this.logoutAction.emit();
-      this.onClose();
-  }
-    
-  /**
-   * Usado para parar a propagação de clique no sidebar, 
-   * impedindo que o clique dentro do menu feche o overlay (embora o HTML já faça isso).
-   */
-  onSidebarClick(event: Event) {
-    event.stopPropagation();
-  }
+  onClose() {
+    this.close.emit();
+  }
+
+  onSidebarClick(event: Event) {
+    event.stopPropagation();
+  }
+
+  navegar(rota: string) {
+    this.router.navigate([rota]);
+    this.onClose();
+  }
+
+  toggleAuth() {
+    this.onClose();
+    this.router.navigate(['/auth']);
+  }
+
+  onLogout() {
+    localStorage.removeItem('token');
+    this.estaLogado = false;
+    this.onClose();
+  }
 }

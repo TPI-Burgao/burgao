@@ -4,32 +4,22 @@ import { Sobre } from './menu/sobre/sobre';
 import { Home } from './core/home/home';
 import { ProfileComponent } from './menu/profile/profile';
 import { ProdutosAdminPage } from './menu/produtos-admin/produtos-admin';
-
-
+import { Auth } from './pages/auth/auth';
+import { OrderHistory } from './pages/order-history/order-history';
 
 export const routes: Routes = [
-  {path: '', redirectTo: '/menu', pathMatch: 'full' },
-  {path: 'home', component: Home},
-  {path: 'menu', component: Menu},
-  {path: 'sobre', component: Sobre},
-  {path: 'perfil', component: ProfileComponent},
+  { path: '', redirectTo: '/menu', pathMatch: 'full' },
+
+  { path: 'home', component: Home },
+  { path: 'menu', component: Menu },
+  { path: 'sobre', component: Sobre },
+  { path: 'perfil', component: ProfileComponent },
   { path: 'admin/produtos', component: ProdutosAdminPage },
-
-
-
-  {
-    path: 'auth',
-    loadComponent: () => 
-        // 1. O caminho é './pages/auth/auth' (assumindo a estrutura da sua imagem)
-        // 2. A classe exportada DEVE ser referenciada como m.AuthComponent (Padrão Angular)
-        import('./pages/auth/auth').then(m => m.Auth) 
-  },
+  { path: 'auth', component: Auth },
 
   {
     path: 'order-history',
-    loadComponent: () => 
-
-        import('./pages/order-history/order-history').then(m => m.OrderHistory) 
+    loadComponent: () =>
+      import('./pages/order-history/order-history').then(m => m.OrderHistory)
   }
-
 ];
