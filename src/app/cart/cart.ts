@@ -27,11 +27,11 @@ export class Cart {
   }
 
   increment(productId: number) {
-    this.cartService.incrementQuantity(productId);
+    this.cartService.incrementarQuantidade(productId);
   }
 
   decrement(productId: number) {
-    this.cartService.decrementQuantity(productId);
+    this.cartService.decrementarQuantidade(productId);
   }
 
   removeItem(productId: number) {
