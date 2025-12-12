@@ -34,31 +34,31 @@ export class Sobre {
     {
       name: 'Mateus Gois',
       role: 'Fundador & Chef',
-      image: 'images/team/carlos.jpg',
+      image: 'images/team/mateus.jpg',
       description: 'Apaixonado por gastronomia há 15 anos, criou o Burgão com o sonho de revolucionar o hambúrguer artesanal.'
     },
     {
       name: 'Enzo',
       role: 'Chef Executivo',
-      image: 'images/team/ana.jpg',
+      image: 'images/team/enzo.jpg',
       description: 'Especialista em culinária internacional, traz criatividade e técnica para cada receita do cardápio.'
     },
     {
       name: 'João Victor',
       role: 'Gerente Geral',
-      image: 'images/team/rafael.jpg',
+      image: 'images/team/joao.jpg',
       description: 'Com experiência em gestão de restaurantes, garante que cada cliente tenha uma experiência memorável.'
     },
     {
       name: 'Matheus Nakagaki',
       role: 'Coordenador de Operações',
-      image: 'images/team/rafael.jpg',
+      image: 'images/team/matheus.jpg',
       description: 'Responsável pela eficiência operacional e qualidade do atendimento em todas as áreas.'
     },
     {
       name: 'Luiz Victor',
       role: 'Supervisor de Qualidade',
-      image: 'images/team/rafael.jpg',
+      image: 'images/team/luiz.jpg',
       description: 'Garante os mais altos padrões de qualidade em cada hambúrguer servido.'
     }
   ];

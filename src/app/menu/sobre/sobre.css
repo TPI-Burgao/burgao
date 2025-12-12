@@ -241,13 +241,6 @@
   transform: scale(1.1);
 }
 
-.team-image::before {
-  content: '👨‍🍳';
-  font-size: 80px;
-  position: absolute;
-  opacity: 0.3;
-}
-
 .team-info {
   padding: 25px;
 }
