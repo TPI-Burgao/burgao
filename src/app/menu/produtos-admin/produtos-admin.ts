@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Produto } from '../../models/produto';
 import { Header } from '../../core/header/header';
 import { Cart } from '../../cart/cart';
 import { CartService } from '../../services/cart.service';
+import { ProdutoService } from '../../services/produto.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-produtos-admin',
@@ -14,26 +16,30 @@ import { CartService } from '../../services/cart.service';
   styleUrl: './produtos-admin.css',
 })
 export class ProdutosAdminPage {
+  private produtoService = inject(ProdutoService);
   produto: Produto = this.novoProduto();
-  produtos: Produto[] = [];
+ 
+  produtos = toSignal<Produto[], Produto[]>(
+    this.produtoService.listar(), { initialValue: [] }
+  )
 
   visualizarProduto(id: number): Produto | undefined {
-    return this.produtos.find(p => p.id === id);
+    return this.produtos().find(p => p.id === id);
   }
 
   adicionarProduto(produto: Produto): Produto {
-    this.produtos.push({ ...produto });
+    this.produtos().push({ ...produto });
     return produto;
   }
 
-  removerProduto(produto: Produto): Produto {
-    this.produtos = this.produtos.filter(p => p.id !== produto.id);
+  /*removerProduto(produto: Produto): Produto {
+    this.produtos() = this.produtos().filter(p => p.id !== produto.id);
     return produto;
-  }
+  }*/
 
   alterarProduto(produtoNovo: Produto): void {
-    const idx = this.produtos.findIndex(p => p.id === produtoNovo.id);
-    if (idx >= 0) this.produtos[idx] = { ...produtoNovo };
+    const idx = this.produtos().findIndex(p => p.id === produtoNovo.id);
+    if (idx >= 0) this.produtos()[idx] = { ...produtoNovo };
   }
 
   onSubmit() {
@@ -50,9 +56,9 @@ export class ProdutosAdminPage {
     this.produto = { ...p };
   }
 
-  excluir(p: Produto) {
+  /*excluir(p: Produto) {
     this.removerProduto(p);
-  }
+  }*/
 
   private novoProduto(): Produto {
     return {

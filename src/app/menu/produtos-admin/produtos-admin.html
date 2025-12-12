@@ -55,7 +55,7 @@
           </button>
         </form>
 
-        <div class="lista-produtos" *ngIf="produtos.length > 0">
+        <div class="lista-produtos">
           <h2>Produtos cadastrados</h2>
           <table>
             <thead>
@@ -69,18 +69,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let p of produtos">
-                <td>{{ p.id }}</td>
-                <td>{{ p.nome }}</td>
-                <td>{{ p.preco | currency:'BRL' }}</td>
-                <td>{{ p.categoria }}</td>
-                <td>{{ p.disponivel ? 'Sim' : 'Não' }}</td>
-                <td>
-                  <button type="button" (click)="editar(p)">Editar</button>
-                  <button type="button" (click)="excluir(p)">Excluir</button>
-                </td>
-              </tr>
-            </tbody>
+                @for(p of produtos(); track p.id){
+                  <tr>
+                    <td>{{ p.id }}</td>
+                    <td>{{ p.nome }}</td>
+                    <td>{{ p.preco | currency:'BRL' }}</td>
+                    <td>{{ p.categoria }}</td>
+                    <td>{{ p.disponivel ? 'Sim' : 'Não' }}</td>
+                    <td>
+                      <button type="button" (click)="editar(p)">Editar</button>
+                      <button type="button">Excluir</button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
           </table>
         </div>
 
