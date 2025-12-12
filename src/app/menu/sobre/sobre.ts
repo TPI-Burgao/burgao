@@ -62,17 +62,4 @@ export class Sobre {
       description: 'Garante os mais altos padrões de qualidade em cada hambúrguer servido.'
     }
   ];
-
-  socialLinks = {
-    instagram: 'https://instagram.com/mcjogadormarcelinho',
-    facebook: 'https://pranx.com/hacker/',
-    whatsapp: 'https://pranx.com/hacker/'
-  };
-
-  openSocial(platform: string) {
-    const link = this.socialLinks[platform as keyof typeof this.socialLinks];
-    if (link) {
-      window.open(link, '_blank');
-    }
-  }
 }
