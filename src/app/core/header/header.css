@@ -9,17 +9,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
-  position: relative;
+  padding: 20px 24px; 
   z-index: 999;
 }
-
 
 .logo {
   font-size: 28px;
   letter-spacing: 4px;
   text-transform: capitalize;
-  color: #FBFADA; 
+  color: #FBFADA;
   text-decoration: none;
 }
 
@@ -52,20 +50,29 @@
   height: 2px;
   background: white;
 }
-
 .header-icons {
   display: flex;
-  gap: 15px;
-}
+  align-items: center;
+  gap: 8px;
 
 .icon-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
   border: none;
   color: white;
   cursor: pointer;
-  padding: 8px;
   border-radius: 50%;
   transition: background 0.3s;
+}
+
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
 }
 
 .icon-btn:hover {
@@ -78,8 +85,8 @@
 
 .cart-badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -4px;
+  right: -4px;
   background: #ff3b30;
   color: white;
   font-size: 11px;
@@ -95,12 +102,11 @@
   0% {
     transform: scale(0);
   }
-
   50% {
     transform: scale(1.2);
   }
-
   100% {
     transform: scale(1);
   }
+}
 }
